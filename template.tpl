@@ -26,52 +26,60 @@ ___TEMPLATE_PARAMETERS___
 
 [
   {
-    "type": "TEXT",
-    "name": "workspaceId",
-    "displayName": "Spectacle Workspace ID",
-    "simpleValueType": true,
-    "alwaysInSummary": true,
-    "valueValidators": [
+    "type": "GROUP",
+    "name": "base-config-group",
+    "displayName": "",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [
       {
-        "type": "NON_EMPTY"
+        "type": "TEXT",
+        "name": "workspaceId",
+        "displayName": "Spectacle Workspace ID",
+        "simpleValueType": true,
+        "alwaysInSummary": true,
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
+          },
+          {
+            "type": "REGEX",
+            "args": [
+              "^ws_[a-zA-Z0-9-_]+$"
+            ],
+            "errorMessage": "Workspace ID must start with \u0027ws_\u0027"
+          }
+        ]
       },
       {
-        "type": "REGEX",
-        "args": [
-          "^ws_[a-zA-Z0-9-_]+$"
+        "type": "SELECT",
+        "name": "methodType",
+        "displayName": "Method Type",
+        "selectItems": [
+          {
+            "value": "page",
+            "displayValue": "Page - Track page views"
+          },
+          {
+            "value": "identify",
+            "displayValue": "Identify - Identify users"
+          },
+          {
+            "value": "track",
+            "displayValue": "Track - Track events"
+          },
+          {
+            "value": "group",
+            "displayValue": "Group - Link user to Company"
+          }
         ],
-        "errorMessage": "Workspace ID must start with \u0027ws_\u0027"
+        "simpleValueType": true,
+        "defaultValue": "page"
       }
     ]
   },
   {
-    "type": "SELECT",
-    "name": "methodType",
-    "displayName": "Method Type",
-    "selectItems": [
-      {
-        "value": "page",
-        "displayValue": "Page - Track page views"
-      },
-      {
-        "value": "identify",
-        "displayValue": "Identify - Identify users"
-      },
-      {
-        "value": "track",
-        "displayValue": "Track - Track events"
-      },
-      {
-        "value": "group",
-        "displayValue": "Group - Link user to Company"
-      }
-    ],
-    "simpleValueType": true,
-    "defaultValue": "page"
-  },
-  {
     "type": "GROUP",
-    "name": "advanced",
+    "name": "advanced-config-group",
     "displayName": "Advanced Configuration",
     "groupStyle": "ZIPPY_CLOSED",
     "subParams": [
@@ -104,214 +112,255 @@ ___TEMPLATE_PARAMETERS___
     ]
   },
   {
-    "type": "TEXT",
-    "name": "userId",
-    "displayName": "User ID",
-    "simpleValueType": true,
-    "enablingConditions": [
+    "type": "GROUP",
+    "name": "user-data-group",
+    "displayName": "",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [
       {
-        "paramName": "methodType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "email",
-    "displayName": "Email",
-    "simpleValueType": true,
-    "enablingConditions": [
+        "type": "TEXT",
+        "name": "userId",
+        "displayName": "User ID",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "identify",
+            "type": "EQUALS"
+          }
+        ]
+      },
       {
-        "paramName": "methodType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      }
-    ],
-    "valueValidators": [
-      {
-        "type": "REGEX",
-        "args": [
-          "^[^@]+@[^@]+\\.[^@]+$"
+        "type": "TEXT",
+        "name": "email",
+        "displayName": "Email",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "identify",
+            "type": "EQUALS"
+          }
         ],
-        "errorMessage": "Must be a valid email address"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "firstName",
-    "displayName": "First Name",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "methodType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "lastName",
-    "displayName": "Last Name",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "methodType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "userTraits",
-    "displayName": "Additional User Traits",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Key",
-        "name": "key",
-        "type": "TEXT"
+        "valueValidators": [
+          {
+            "type": "REGEX",
+            "args": [
+              "^[^@]+@[^@]+\\.[^@]+$"
+            ],
+            "errorMessage": "Must be a valid email address"
+          }
+        ]
       },
       {
-        "defaultValue": "",
-        "displayName": "Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "newRowButtonText": "Add Trait",
-    "enablingConditions": [
-      {
-        "paramName": "methodType",
-        "paramValue": "identify",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "eventName",
-    "displayName": "Event Name",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "methodType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      }
-    ],
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "revenue",
-    "displayName": "Revenue (in cents)",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "methodType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "currency",
-    "displayName": "Currency",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "methodType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "eventProperties",
-    "displayName": "Event Properties",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Key",
-        "name": "key",
-        "type": "TEXT"
+        "type": "TEXT",
+        "name": "firstName",
+        "displayName": "First Name",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "identify",
+            "type": "EQUALS"
+          }
+        ]
       },
       {
-        "defaultValue": "",
-        "displayName": "Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "newRowButtonText": "Add Property",
-    "enablingConditions": [
-      {
-        "paramName": "methodType",
-        "paramValue": "track",
-        "type": "EQUALS"
-      }
-    ]
-  },
-  {
-    "type": "TEXT",
-    "name": "groupId",
-    "displayName": "Group ID",
-    "simpleValueType": true,
-    "enablingConditions": [
-      {
-        "paramName": "methodType",
-        "paramValue": "group",
-        "type": "EQUALS"
-      }
-    ],
-    "valueValidators": [
-      {
-        "type": "NON_EMPTY"
-      }
-    ]
-  },
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "groupTraits",
-    "displayName": "Group Traits",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Key",
-        "name": "key",
-        "type": "TEXT"
+        "type": "TEXT",
+        "name": "lastName",
+        "displayName": "Last Name",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "identify",
+            "type": "EQUALS"
+          }
+        ]
       },
       {
-        "defaultValue": "",
-        "displayName": "Value",
-        "name": "value",
-        "type": "TEXT"
-      }
-    ],
-    "newRowButtonText": "Add Trait",
-    "enablingConditions": [
-      {
-        "paramName": "methodType",
-        "paramValue": "group",
-        "type": "EQUALS"
+        "type": "SIMPLE_TABLE",
+        "name": "userTraits",
+        "displayName": "Additional User Traits",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Key",
+            "name": "key",
+            "type": "TEXT"
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Value",
+            "name": "value",
+            "type": "TEXT"
+          }
+        ],
+        "newRowButtonText": "Add Trait",
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "identify",
+            "type": "EQUALS"
+          }
+        ]
       }
     ]
   },
   {
-    "type": "CHECKBOX",
-    "name": "debugMode",
-    "checkboxText": "Enable debug logging",
-    "simpleValueType": true
+    "type": "GROUP",
+    "name": "event-data-group",
+    "displayName": "",
+    "groupStyle": "NO_ZIPPY",
+    "subParams": [
+      {
+        "type": "TEXT",
+        "name": "text1",
+        "displayName": "",
+        "simpleValueType": true
+      },
+      {
+        "type": "TEXT",
+        "name": "eventName",
+        "displayName": "Event Name",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "track",
+            "type": "EQUALS"
+          }
+        ],
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
+          }
+        ]
+      },
+      {
+        "type": "TEXT",
+        "name": "revenue",
+        "displayName": "Revenue (in cents)",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "track",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "TEXT",
+        "name": "currency",
+        "displayName": "Currency",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "track",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "TEXT",
+        "name": "groupId",
+        "displayName": "Group ID",
+        "simpleValueType": true,
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "group",
+            "type": "EQUALS"
+          }
+        ],
+        "valueValidators": [
+          {
+            "type": "NON_EMPTY"
+          }
+        ]
+      },
+      {
+        "type": "SIMPLE_TABLE",
+        "name": "eventProperties",
+        "displayName": "Event Properties",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Key",
+            "name": "key",
+            "type": "TEXT"
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Value",
+            "name": "value",
+            "type": "TEXT"
+          }
+        ],
+        "newRowButtonText": "Add Property",
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "track",
+            "type": "EQUALS"
+          }
+        ]
+      },
+      {
+        "type": "SIMPLE_TABLE",
+        "name": "groupTraits",
+        "displayName": "Group Traits",
+        "simpleTableColumns": [
+          {
+            "defaultValue": "",
+            "displayName": "Key",
+            "name": "key",
+            "type": "TEXT"
+          },
+          {
+            "defaultValue": "",
+            "displayName": "Value",
+            "name": "value",
+            "type": "TEXT"
+          }
+        ],
+        "newRowButtonText": "Add Trait",
+        "enablingConditions": [
+          {
+            "paramName": "methodType",
+            "paramValue": "group",
+            "type": "EQUALS"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "GROUP",
+    "name": "tagExecutionConsentSettingsGroup",
+    "displayName": "Tag Execution Consent Settings",
+    "groupStyle": "ZIPPY_CLOSED",
+    "subParams": [
+      {
+        "type": "RADIO",
+        "name": "adStorageConsent",
+        "radioItems": [
+          {
+            "value": "optional",
+            "displayValue": "Send data always"
+          },
+          {
+            "value": "required",
+            "displayValue": "Send data in case marketing consent given",
+            "help": "Aborts the tag execution if marketing consent (\u003ci\u003ead_storage\u003c/i\u003e Google Consent Mode or Stape\u0027s Data Tag parameter) is not given."
+          }
+        ],
+        "simpleValueType": true,
+        "defaultValue": "optional"
+      }
+    ]
   },
   {
     "displayName": "Logs Settings",
@@ -421,7 +470,6 @@ const getAllEventData = require('getAllEventData');
 const getCookieValues = require('getCookieValues');
 const setCookie = require('setCookie');
 const getRequestHeader = require('getRequestHeader');
-const sha256Sync = require('sha256Sync');
 const getTimestampMillis = require('getTimestampMillis');
 const logToConsole = require('logToConsole');
 const generateRandom = require('generateRandom');
@@ -431,154 +479,49 @@ const makeString = require('makeString');
 const makeInteger = require('makeInteger');
 const BigQuery = require('BigQuery');
 
-// Constants matching your pixel implementation
+/*==============================================================================
+==============================================================================*/
+const eventData = getAllEventData();
 const ANON_COOKIE_KEY = 'sp__anon_id';
 const USER_COOKIE_KEY = 'sp__user_id';
 const COOKIE_EXPIRY_DAYS = 365;
+const url = eventData.page_location || getRequestHeader('referer');
 
-/**
- * Generate UUID v4 compatible anonymous ID
- */
-function generateAnonymousId() {
-  // Generate segments for UUID format
-  const seg1 = generateRandom(10000000, 99999999);
-  const seg2 = generateRandom(1000, 9999);
-  const seg3 = generateRandom(1000, 9999);
-  const seg4 = generateRandom(1000, 9999);
-  const seg5 = generateRandom(100000000000, 999999999999);
-
-  return seg1 + '-' + seg2 + '-' + seg3 + '-' + seg4 + '-' + seg5;
+if (!isConsentGivenOrNotRequired(data, eventData)) {
+  return data.gtmOnSuccess();
 }
 
-/**
- * Get or create anonymous ID
- */
-function getOrCreateAnonymousId() {
-  // Try to get existing anonymous ID from cookies
-  let anonymousId;
-
-  const anonCookieValues = getCookieValues(ANON_COOKIE_KEY);
-  if (anonCookieValues && anonCookieValues.length > 0) {
-    anonymousId = anonCookieValues[0];
-    if (data.debugMode) {
-      logToConsole('Spectacle: Found existing anonymous ID:', anonymousId);
-    }
-  }
-
-  // Generate new ID if none exists
-  if (!anonymousId) {
-    anonymousId = generateAnonymousId();
-    if (data.debugMode) {
-      logToConsole('Spectacle: Generated new anonymous ID:', anonymousId);
-    }
-  }
-
-  // Set/refresh the cookie
-  setCookie(ANON_COOKIE_KEY, anonymousId, {
-    domain: getCookieDomain(data.cookieDomain),
-    path: '/',
-    'max-age': COOKIE_EXPIRY_DAYS * 24 * 60 * 60,
-    secure: true,
-    sameSite: 'lax'
-  });
-
-  return anonymousId;
+if (url && url.lastIndexOf('https://gtm-msr.appspot.com/', 0) === 0) {
+  return data.gtmOnSuccess();
 }
 
-/**
- * Get stored user ID if exists
- */
-function getStoredUserId() {
-  const userCookieValues = getCookieValues(USER_COOKIE_KEY);
-  if (userCookieValues && userCookieValues.length > 0) {
-    return userCookieValues[0];
-  }
-  return null;
+// Main execution
+const methodType = data.methodType;
+
+// Execute the appropriate method
+switch (methodType) {
+  case 'page':
+    handlePage();
+    break;
+  case 'identify':
+    handleIdentify();
+    break;
+  case 'track':
+    handleTrack();
+    break;
+  case 'group':
+    handleGroup();
+    break;
+  default:
+    logToConsole('Spectacle: Unknown method type', methodType);
+    data.gtmOnFailure();
+    break;
 }
 
-/**
- * Store user ID when identified
- */
-function storeUserId(userId) {
-  if (userId) {
-    setCookie(USER_COOKIE_KEY, makeString(userId), {
-      domain: getCookieDomain(data.cookieDomain),
-      path: '/',
-      'max-age': COOKIE_EXPIRY_DAYS * 24 * 60 * 60,
-      secure: true,
-      sameSite: 'lax'
-    });
-  }
-}
+/*==============================================================================
+  Vendor related functions
+==============================================================================*/
 
-/**
- * Get cookie domain to use. Prefix with '.' if missing.
- */
-function getCookieDomain(cookieDomain) {
-  if (cookieDomain) {
-    if (cookieDomain[0] !== '.') {
-      cookieDomain = '.' + cookieDomain;
-    }
-    logToConsole('Spectacle: final cookie domain:', cookieDomain);
-    return cookieDomain;
-  }
-
-  return 'auto';
-}
-
-/**
- * Extract campaign/UTM parameters from URL
- */
-function extractCampaign(url) {
-  const campaign = {};
-
-  if (!url) return campaign;
-
-  const parsedUrl = parseUrl(url);
-  if (!parsedUrl || !parsedUrl.searchParams) return campaign;
-
-  // Check each UTM parameter directly
-  if (parsedUrl.searchParams.utm_source) {
-    campaign.source = parsedUrl.searchParams.utm_source;
-  }
-  if (parsedUrl.searchParams.utm_medium) {
-    campaign.medium = parsedUrl.searchParams.utm_medium;
-  }
-  if (parsedUrl.searchParams.utm_campaign) {
-    campaign.name = parsedUrl.searchParams.utm_campaign; // Note: maps to 'name'
-  }
-  if (parsedUrl.searchParams.utm_term) {
-    campaign.term = parsedUrl.searchParams.utm_term;
-  }
-  if (parsedUrl.searchParams.utm_content) {
-    campaign.content = parsedUrl.searchParams.utm_content;
-  }
-
-  return campaign;
-}
-
-/**
- * Build page context matching your pixel implementation
- */
-function buildPageContext() {
-  const pageLocation = getEventData('page_location') || '';
-  const pageReferrer = getEventData('page_referrer') || '';
-  const pageTitle = getEventData('page_title') || '';
-
-  const parsedUrl = parseUrl(pageLocation);
-
-  return {
-    path: parsedUrl ? parsedUrl.pathname : '',
-    referrer: pageReferrer,
-    search: parsedUrl ? parsedUrl.search : '',
-    title: pageTitle,
-    url: pageLocation
-  };
-}
-
-/**
- * Build base payload matching your Segment-like API format
- */
 function buildBasePayload(method) {
   const now = getTimestampMillis();
   const anonymousId = getOrCreateAnonymousId();
@@ -612,22 +555,6 @@ function buildBasePayload(method) {
   };
 }
 
-/**
- * Helper to iterate over object properties (replaces Object.keys)
- */
-function iterateObject(obj, callback) {
-  if (!obj || getType(obj) !== 'object') return;
-
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      callback(key, obj[key]);
-    }
-  }
-}
-
-/**
- * Handle PAGE method
- */
 function handlePage() {
   const payload = buildBasePayload('page');
 
@@ -660,9 +587,6 @@ function handlePage() {
   return sendToSpectacle('/p', payload);
 }
 
-/**
- * Handle IDENTIFY method
- */
 function handleIdentify() {
   const payload = buildBasePayload('identify');
   const traits = {};
@@ -712,9 +636,6 @@ function handleIdentify() {
   return sendToSpectacle('/i', payload);
 }
 
-/**
- * Handle TRACK method
- */
 function handleTrack() {
   const payload = buildBasePayload('track');
 
@@ -754,9 +675,6 @@ function handleTrack() {
   return sendToSpectacle('/t', payload);
 }
 
-/**
- * Handle GROUP method
- */
 function handleGroup() {
   const payload = buildBasePayload('group');
 
@@ -786,34 +704,36 @@ function handleGroup() {
   return sendToSpectacle('/g', payload);
 }
 
-/**
- * Send request to Spectacle
- */
 function sendToSpectacle(endpoint, payload) {
   const url = data.baseUrl + endpoint;
-
-  if (data.debugMode) {
-    logToConsole('Spectacle: Sending to', url);
-    logToConsole('Spectacle: Payload', payload);
-  }
-
-  // Note: Server-side doesn't need no-cors mode
-  sendHttpRequest(
-    url,
-    {
-      headers: {
-        'Content-Type': 'text/plain',
-        'User-Agent': payload.context.userAgent
-      },
-      method: 'POST',
-      timeout: 5000
+  const options = {
+    headers: {
+      'Content-Type': 'text/plain',
+      'User-Agent': payload.context.userAgent
     },
-    JSON.stringify(payload)
-  )
+    method: 'POST',
+    timeout: 5000
+  };
+
+  log({
+    Name: 'SpectacleServerTag',
+    Type: 'Request',
+    EventName: makeString(payload.type),
+    RequestMethod: 'POST',
+    RequestUrl: url,
+    RequestBody: JSON.parse(JSON.stringify(payload))
+  });
+  // Note: Server-side doesn't need no-cors mode
+  sendHttpRequest(url, options, JSON.stringify(payload))
     .then((result) => {
-      if (data.debugMode) {
-        logToConsole('Spectacle: Response', result);
-      }
+      log({
+        Name: 'SpectacleServerTag',
+        Type: 'Response',
+        EventName: makeString(payload.type),
+        ResponseStatusCode: result.statusCode,
+        ResponseHeaders: result.headers,
+        ResponseBody: JSON.parse(JSON.stringify(result.body))
+      });
 
       if (result.statusCode >= 200 && result.statusCode < 300) {
         data.gtmOnSuccess();
@@ -824,13 +744,147 @@ function sendToSpectacle(endpoint, payload) {
     })
     .catch((error) => {
       logToConsole('Spectacle: Request failed', error);
+      log({
+        Name: 'SpectacleServerTag',
+        Type: 'Response',
+        EventName: makeString(payload.type),
+        Message: 'Spectacle Request failed.',
+        Reason: JSON.stringify(error)
+      });
       data.gtmOnFailure();
     });
 }
 
-/**
- * Handle Logging
- */
+/*==============================================================================
+  Helpers
+==============================================================================*/
+
+function generateAnonymousId() {
+  // Generate segments for UUID format
+  const seg1 = generateRandom(10000000, 99999999);
+  const seg2 = generateRandom(1000, 9999);
+  const seg3 = generateRandom(1000, 9999);
+  const seg4 = generateRandom(1000, 9999);
+  const seg5 = generateRandom(100000000000, 999999999999);
+
+  return seg1 + '-' + seg2 + '-' + seg3 + '-' + seg4 + '-' + seg5;
+}
+
+function getOrCreateAnonymousId() {
+  // Try to get existing anonymous ID from cookies
+  let anonymousId;
+
+  const anonCookieValues = getCookieValues(ANON_COOKIE_KEY);
+  if (anonCookieValues && anonCookieValues.length > 0) {
+    anonymousId = anonCookieValues[0];
+    if (data.logType === 'debug' || data.logType === 'always') {
+      logToConsole('Spectacle: Found existing anonymous ID:', anonymousId);
+    }
+  }
+
+  // Generate new ID if none exists
+  if (!anonymousId) {
+    anonymousId = generateAnonymousId();
+    if (data.logType === 'debug' || data.logType === 'always') {
+      logToConsole('Spectacle: Generated new anonymous ID:', anonymousId);
+    }
+  }
+
+  // Set/refresh the cookie
+  setCookie(ANON_COOKIE_KEY, anonymousId, {
+    domain: getCookieDomain(data.cookieDomain),
+    path: '/',
+    'max-age': COOKIE_EXPIRY_DAYS * 24 * 60 * 60,
+    secure: true,
+    sameSite: 'lax'
+  });
+
+  return anonymousId;
+}
+
+function getStoredUserId() {
+  const userCookieValues = getCookieValues(USER_COOKIE_KEY);
+  if (userCookieValues && userCookieValues.length > 0) {
+    return userCookieValues[0];
+  }
+  return null;
+}
+
+function storeUserId(userId) {
+  if (userId) {
+    setCookie(USER_COOKIE_KEY, makeString(userId), {
+      domain: getCookieDomain(data.cookieDomain),
+      path: '/',
+      'max-age': COOKIE_EXPIRY_DAYS * 24 * 60 * 60,
+      secure: true,
+      sameSite: 'lax'
+    });
+  }
+}
+
+function getCookieDomain(cookieDomain) {
+  if (cookieDomain) {
+    if (cookieDomain[0] !== '.') {
+      cookieDomain = '.' + cookieDomain;
+    }
+    logToConsole('Spectacle: final cookie domain:', cookieDomain);
+    return cookieDomain;
+  }
+
+  return 'auto';
+}
+
+function extractCampaign(url) {
+  const campaign = {};
+
+  if (!url) return campaign;
+
+  const parsedUrl = parseUrl(url);
+  if (!parsedUrl || !parsedUrl.searchParams) return campaign;
+
+  // Check each UTM parameter directly
+  if (parsedUrl.searchParams.utm_source) {
+    campaign.source = parsedUrl.searchParams.utm_source;
+  }
+  if (parsedUrl.searchParams.utm_medium) {
+    campaign.medium = parsedUrl.searchParams.utm_medium;
+  }
+  if (parsedUrl.searchParams.utm_campaign) {
+    campaign.name = parsedUrl.searchParams.utm_campaign; // Note: maps to 'name'
+  }
+  if (parsedUrl.searchParams.utm_term) {
+    campaign.term = parsedUrl.searchParams.utm_term;
+  }
+  if (parsedUrl.searchParams.utm_content) {
+    campaign.content = parsedUrl.searchParams.utm_content;
+  }
+
+  return campaign;
+}
+
+function buildPageContext() {
+  const pageLocation = getEventData('page_location') || '';
+  const pageReferrer = getEventData('page_referrer') || '';
+  const pageTitle = getEventData('page_title') || '';
+
+  const parsedUrl = parseUrl(pageLocation);
+
+  return {
+    path: parsedUrl ? parsedUrl.pathname : '',
+    referrer: pageReferrer,
+    search: parsedUrl ? parsedUrl.search : '',
+    title: pageTitle,
+    url: pageLocation
+  };
+}
+
+function isConsentGivenOrNotRequired(data, eventData) {
+  if (data.adStorageConsent !== 'required') return true;
+  if (eventData.consent_state) return !!eventData.consent_state.ad_storage;
+  const xGaGcs = eventData['x-ga-gcs'] || ''; // x-ga-gcs is a string like "G110"
+  return xGaGcs[2] === '1';
+}
+
 function logConsole(dataToLog) {
   logToConsole(JSON.stringify(dataToLog));
 }
@@ -919,29 +973,6 @@ function determinateIsLoggingEnabledForBigQuery() {
   return data.bigQueryLogType === 'always';
 }
 
-// Main execution
-const methodType = data.methodType;
-
-// Execute the appropriate method
-switch (methodType) {
-  case 'page':
-    handlePage();
-    break;
-  case 'identify':
-    handleIdentify();
-    break;
-  case 'track':
-    handleTrack();
-    break;
-  case 'group':
-    handleGroup();
-    break;
-  default:
-    logToConsole('Spectacle: Unknown method type', methodType);
-    data.gtmOnFailure();
-    break;
-}
-
 
 ___SERVER_PERMISSIONS___
 
@@ -974,6 +1005,9 @@ ___SERVER_PERMISSIONS___
         }
       ]
     },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
     "isRequired": true
   },
   {
@@ -991,6 +1025,9 @@ ___SERVER_PERMISSIONS___
           }
         }
       ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
     },
     "isRequired": true
   },
@@ -1025,6 +1062,9 @@ ___SERVER_PERMISSIONS___
           }
         }
       ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
     },
     "isRequired": true
   },
@@ -1174,6 +1214,9 @@ ___SERVER_PERMISSIONS___
         }
       ]
     },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
     "isRequired": true
   },
   {
@@ -1191,6 +1234,9 @@ ___SERVER_PERMISSIONS___
           }
         }
       ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
     },
     "isRequired": true
   },
