@@ -1,28 +1,19 @@
-# Spectacle GTM Server-Side Template
+# Spectacle Tag for Google Tag Manager Server-Side
 
 This is a **Google Tag Manager Server-Side (s-GTM)** Template for **Spectacle tracking**. It allows you to send data directly from your server container to the Spectacle API, providing enhanced control over data and cookie management, and reducing reliance on client-side scripts.
 
+## Open Source
+
+The **Spectable by Stape** is developed and maintained by the [Stape Team](https://stape.io/) under the Apache 2.0 license.
+
 ## 🚀 Features
 
-- **Server-Side Tracking:** Sends `page`, `identify`, `track`, and `group` calls directly from the GTM Server Container[cite: 52, 53, 54].
-- **Cookie Management:** Automatically manages the Spectacle **Anonymous ID** (`sp__anon_id`) and **User ID** (`sp__user_id`) cookies for cross-event and cross-request user stitching[cite: 49, 107, 110].
-- **Full Context Inclusion:** Automatically extracts and includes user context like **User-Agent**, **Page/Referrer URL**, **Campaign UTMs**, **Timezone**, and **Locale** from the incoming request data[cite: 57, 58, 60, 113, 119].
-- **Consent Mode Support:** Includes a built-in check for `ad_storage` consent, allowing you to control tag firing based on the user's consent status[cite: 32, 33, 123].
-- **Flexible Logging:** Supports logging to the GTM Console for **Debugging/Preview** mode and offers **optional BigQuery logging** for storing full request/response data[cite: 35, 36, 37, 125, 131].
-- **Flexible Configuration:** Allows passing custom `User Traits`, `Group Traits`, and `Event Properties` via a simple table input in the tag configuration[cite: 16, 26, 29].
-
----
-
-## ⚙️ Installation (Gallery)
-
-1.  **Search Gallery:**
-    - In your GTM Server Container, navigate to the **Templates** section.
-    - Click **Search Gallery** and search for this template.
-2.  **Add to container:**
-    - On **Template Details**, click **Add To Workspace** and confirm.
-3.  **Create a New Tag:**
-    - Go to **Tags** and click **New**.
-    - Select the newly imported **"Stape Spectacle - Server Side"** tag.
+- **Server-Side Tracking:** Sends `page`, `identify`, `track`, and `group` calls directly from the GTM Server Container.
+- **Cookie Management:** Automatically manages the Spectacle **Anonymous ID** (`sp__anon_id`) and **User ID** (`sp__user_id`) cookies for cross-event and cross-request user stitching.
+- **Full Context Inclusion:** Automatically extracts and includes user context like **User-Agent**, **Page/Referrer URL**, **Campaign UTMs**, **Timezone**, and **Locale** from the incoming request data.
+- **Consent Mode Support:** Includes a built-in check for `ad_storage` consent, allowing you to control tag firing based on the user's consent status.
+- **Flexible Logging:** Supports logging to the GTM Console for **Debugging/Preview** mode and offers **optional BigQuery logging** for storing full request/response data.
+- **Flexible Configuration:** Allows passing custom `User Traits`, `Group Traits`, and `Event Properties` via a simple table input in the tag configuration.
 
 ---
 
@@ -37,7 +28,7 @@ This is a **Google Tag Manager Server-Side (s-GTM)** Template for **Spectacle tr
     - Select the downloaded `template.tpl` file and click **Save**.
 3.  **Create a New Tag:**
     - Go to **Tags** and click **New**.
-    - Select the newly imported **"Stape Spectacle - Server Side"** tag.
+    - Select the newly imported **"Spectacle by Stape"** tag.
 
 ---
 
@@ -84,7 +75,7 @@ Based on the **Method Type** selected, additional fields will be enabled:
 
 | Parameter         | Type | Default                     | Description                                                                                            |
 | :---------------- | :--- | :-------------------------- | :----------------------------------------------------------------------------------------------------- |
-| **API Base URL**  | Text | `https://t.spectaclehq.com` | The Spectacle API endpoint. Must use HTTPS[cite: 8].                                                   |
+| **API Base URL**  | Text | `https://t.spectaclehq.com` | The Spectacle API endpoint. Must use HTTPS                                                             |
 | **Cookie Domain** | Text | Empty (auto)                | The domain to use for setting the Spectacle cookies. Leave empty for GTM's automatic domain detection. |
 
 ### 4. Tag Execution Consent Settings
