@@ -1,0 +1,5 @@
+homepage: 'https://stape.io/'
+documentation: 'https://github.com/stape-io/spectacle-tag-server'
+versions:
+  - sha: 0b965717d3e8f8528915185fbafede1e7cf29598
+    changeNotes: Initial Release.
