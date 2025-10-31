@@ -2,10 +2,6 @@
 
 This is a **Google Tag Manager Server-Side (s-GTM)** Template for **Spectacle tracking**. It allows you to send data directly from your server container to the Spectacle API, providing enhanced control over data and cookie management, and reducing reliance on client-side scripts.
 
-## Open Source
-
-The **Spectable by Stape** is developed and maintained by the [Stape Team](https://stape.io/) under the Apache 2.0 license.
-
 ## 🚀 Features
 
 - **Server-Side Tracking:** Sends `page`, `identify`, `track`, and `group` calls directly from the GTM Server Container.
@@ -92,3 +88,7 @@ Based on the **Method Type** selected, additional fields will be enabled:
 | **Log to BigQuery** | Radio | `Do not log...`           | Allows enabling persistent logging of all tag data to a BigQuery table |
 
 ---
+
+## Open Source
+
+The **Spectable by Stape** is developed and maintained by the [Stape Team](https://stape.io/) under the Apache 2.0 license.
