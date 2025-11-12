@@ -15,6 +15,7 @@ const makeString = require('makeString');
 const makeInteger = require('makeInteger');
 const BigQuery = require('BigQuery');
 const computeEffectiveTldPlusOne = require('computeEffectiveTldPlusOne');
+const encodeUri = require('encodeUri');
 
 /*==============================================================================
 ==============================================================================*/
@@ -288,7 +289,7 @@ function handleGroup() {
 }
 
 function sendToSpectacle(endpoint, payload) {
-  const url = data.baseUrl + endpoint;
+  const url = encodeUri(data.baseUrl) + endpoint;
   const options = {
     headers: {
       'Content-Type': 'text/plain',
